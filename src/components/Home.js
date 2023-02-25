@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import Granim from "granim";
+import Navigation from "../Navigation";
 
 function Home() {
+
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [granimInstance, setGranimInstance] = useState(null);
@@ -18,15 +22,17 @@ function Home() {
           y1: "50%",
         },
         isPausedWhenNotInView: true,
+
         states: {
           "default-state": {
             gradients: [
-              ["#ff9966", "#ff5e62"],
-              ["#00F260", "#0575E6"],
-              ["#e1eec3", "#f05053"],
+              ["#0A080D", "#40263D"],
+              ["#570F32", "#530C2E"],
+              ["#3B2F4C", "#141729"],
             ],
           },
         },
+
       });
       setGranimInstance(instance);
     } else {
@@ -47,8 +53,10 @@ function Home() {
     fetchSearchResults();
   }, [searchTerm, granimInstance]);
 
+
   return (
     <div>
+      <Navigation/>
       <div className="search-bar-container">
         <div className="search-bar-wrapper">
           <input
@@ -61,10 +69,16 @@ function Home() {
         </div>
         <div className="search-results-container">
           {searchResults.map((result) => (
-            <div key={result.companyId} className="search-result">
-              {result.companyName}
-            </div>
+            <>
+              <div key={result.companyId} className="search-result">
+                <li>{result.companyName}</li>
+                <li>{result.companyIndustry}</li>
+              </div>
+            </>
           ))}
+          {searchTerm && <div className="search-result">
+            <li id="add">Don't see what you're looking for? <br></br>Click <Link to="/AddCompany">here</Link> to add a company</li>
+          </div>}
         </div>
       </div>
       <canvas id="canvas-basic" style={{ zIndex: -1 }}></canvas>
