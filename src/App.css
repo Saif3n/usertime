@@ -43,6 +43,14 @@ body {
   margin: 0;
 
 }
+
+.header{
+  color:white;
+}
+.detail{
+  color:white;
+  font-size:2vh;
+}
 li{
   list-style-type: none;
 }

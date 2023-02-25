@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import Granim from "granim";
 import Navigation from "../Navigation";
+import WaitTime from "../components/WaitTime";
 
 function Home() {
 
-  
+
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [granimInstance, setGranimInstance] = useState(null);
@@ -56,7 +57,10 @@ function Home() {
 
   return (
     <div>
-      <Navigation/>
+      <div className="title">
+        <h1 className="header">Call Centre Wait Times</h1>
+        <h2 className="detail">Wanting to know how long it'll take to get through to a company via phone? Type in the desired company in the search box below.</h2>
+      </div>
       <div className="search-bar-container">
         <div className="search-bar-wrapper">
           <input
@@ -81,6 +85,8 @@ function Home() {
           </div>}
         </div>
       </div>
+      {/* need to add*/}
+      <WaitTime></WaitTime> 
       <canvas id="canvas-basic" style={{ zIndex: -1 }}></canvas>
     </div>
   );
