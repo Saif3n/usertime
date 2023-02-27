@@ -1,59 +1,72 @@
-body {
-  background-image: linear-gradient(to right , #cb2d3e , #ef473a);
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: 0;
 }
 
-.searchBox {
+body {
+  background: #4969ad;
+}
+
+.middle {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform:  translate(-50%,50%);
-  background: #2f3640;
-  height: 40px;
-  border-radius: 40px;
-  padding: 10px;
-
+  transform: translate(-50%, -50%);
 }
-
-.searchBox:hover > .searchInput {
-  width: 240px;
-  padding: 0 6px;
-}
-
-.searchBox:hover > .searchButton {
-background: white;
-color : #2f3640;
-}
-
-.searchButton {
-  color: white;
-  float: right;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #2f3640;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.4s;
-}
-
-.searchInput {
-  border:none;
+.input {
+  width: 60px;
+  height: 60px;
   background: none;
-  outline:none;
-  float:left;
-  padding: 0;
-  color: white;
-  font-size: 16px;
-  transition: 0.4s;
-  line-height: 40px;
-  width: 0px;
-
+  border-radius: 50px;
+  border: 4px solid #fff;
+  outline: none;
+  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
+    padding 0.2s;
+  transition-delay: 0.4s;
+  color: #fff;
+  font-size: 20px;
 }
-
-@media screen and (max-width: 620px) {
-.searchBox:hover > .searchInput {
-  width: 150px;
-  padding: 0 6px;
+.inclicked {
+  width: 360px;
+  border-radius: 0;
+  padding: 0 1rem;
 }
+.btn {
+  position: absolute;
+  width: 65px;
+  height: 64px;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.btn::before {
+  content: '';
+  width: 4px;
+  height: 31px;
+  background: #fff;
+  position: absolute;
+  transform: rotate(-45deg);
+  bottom: -16px;
+  right: -6px;
+  transition: 0.3s;
+}
+.close::after,
+.close::before {
+  content: '';
+  width: 4px;
+  height: 34px;
+  background: #fff;
+  position: absolute;
+  bottom: 12px;
+  right: 28px;
+}
+.close::before {
+  transform: rotate(-45deg);
+}
+.close::after {
+  transform: rotate(45deg);
 }

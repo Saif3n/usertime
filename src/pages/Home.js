@@ -7,36 +7,74 @@ const SearchBar = () => {
   const [selectedResult, setSelectedResult] = useState(null);
   const resultsRef = useRef(null);
 
+  const exampleResults = [
+    "apple",
+    "banana",
+    "cherry",
+    "date",
+    "elderberry",
+    "fig",
+    "grape",
+    "honeydew",
+    "jackfruit",
+    "kiwi",
+    "lemon",
+    "mango",
+    "nectarine",
+    "orange",
+    "peach",
+    "quince",
+    "raspberry",
+    "strawberry",
+    "tangerine",
+    "watermelon"
+  ];
+
   useEffect(() => {
-    if (showResults && resultsRef.current) {
-      resultsRef.current.style.height = `${resultsRef.current.scrollHeight}px`;
-    } else if (!showResults && resultsRef.current) {
-      resultsRef.current.style.height = '0';
-      setSelectedResult(null);
+    if (searchValue.length > 0) {
+      setShowResults(true);
+    } else {
+      setShowResults(false);
     }
-  }, [showResults]);
+  }, [searchValue]);
 
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
-    setShowResults(event.target.value.length > 0);
   };
 
   const handleResultClick = (result) => {
-    setSelectedResult(result);
-    setSearchValue(result);
-    setShowResults(false);
+
+
+    const btn = document.querySelector('.btn'),
+    input = document.querySelector('.input');
+
+    btn.classList.toggle('close');
+    input.classList.toggle('inclicked');
   };
 
-  return (
-    <div class="searchBox">
-      <input class="searchInput" type="text" name="" placeholder="Search"/>
-        <button class="searchButton" href="#">
-          <i class="material-icons">
-            search
-          </i>
-        </button>
-    </div>
+  const resultsList = exampleResults.filter((result) => {
+    return result.toLowerCase().includes(searchValue.toLowerCase());
+  }).map((result) => {
+    return (
+      <li key={result} >
+        {result}
+      </li>
+    );
+  });
 
+  return (
+    <div className="search-container">
+      <div className="middle">
+        <input className="input" type="text" value={searchValue} onChange={handleSearchChange} />
+        <button className="btn" onClick={handleResultClick}></button>
+      </div>
+      {showResults && (
+        <div ref={resultsRef} className="search-results">
+          <ul>{resultsList}</ul>
+        </div>
+      )}
+      {selectedResult && <div className="selected-result">Selected Result: {selectedResult}</div>}
+    </div>
   );
 };
 
