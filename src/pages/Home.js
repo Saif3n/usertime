@@ -11,6 +11,7 @@ function Home() {
   const [searchResults, setSearchResults] = useState([]);
   const [granimInstance, setGranimInstance] = useState(null);
   const [companySearch, setCompanySearch] = useState(null);
+  const [companyIndustry, setCompanyIndustry] = useState(null);
 
   const resultTime = useRef();
 
@@ -57,16 +58,17 @@ function Home() {
     fetchSearchResults();
   }, [searchTerm, granimInstance]);
 
-  const handleCompanyClick = (company) => {
-    console.log("wd" + company)
+  const handleCompanyClick = (company, industry) => {
     setCompanySearch(company)
+    setCompanyIndustry(industry)
+    setSearchTerm('');
   }
 
   return (
     <div>
       <div className="title">
         <h1 className="header">Call Centre Wait Times</h1>
-        <h2 className="detail">Wanting to know how long it'll take to get through to a company via phone? Type in the desired company in the search box below.</h2>
+        <h2 className="detail">Wanting to know how long it'll take to get through to a company via phone? Type the desired company in the search box below.</h2>
       </div>
       <div className="search-bar-container">
         <div className="search-bar-wrapper">
@@ -80,20 +82,19 @@ function Home() {
         </div>
         <div className="search-results-container">
           {searchResults.map((result) => (
-            <>
-              <div key={result.companyId} onClick = {() => handleCompanyClick(result.companyName)} className="search-result">
+              <div key={result.companyId} onClick = {() => handleCompanyClick(result.companyName, result.companyIndustry)} className="search-result">
                 <li>{result.companyName}</li>
                 <li>{result.companyIndustry}</li>
               </div>
-            </>
           ))}
           {searchTerm && <div className="search-result">
             <li id="add">Don't see what you're looking for? <br></br>Click <Link to="/AddCompany">here</Link> to add a company</li>
           </div>}
         </div>
+        {companySearch && <WaitTime companyName={companySearch} companyIndustry={companyIndustry} ref = {resultTime}></WaitTime>}
       </div>
 
-      {companySearch && <WaitTime companyName={companySearch} ref = {resultTime}></WaitTime>}
+      
       <canvas id="canvas-basic" style={{ zIndex: -1 }}></canvas>
     </div>
   );

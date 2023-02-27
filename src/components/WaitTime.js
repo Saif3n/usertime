@@ -6,6 +6,8 @@ const WaitTime = React.forwardRef((props, ref) => {
   const [lastReview, setLastReview] = useState(null);
 
   const companyName = props.companyName;
+  const companyIndustry = props.companyIndustry;
+  console.log(companyIndustry)
   console.log(companyName)
 
   useEffect(() => {
@@ -19,9 +21,11 @@ const WaitTime = React.forwardRef((props, ref) => {
   }, [companyName]);
 
   return (
-    <div>
-      <h1>{timeWaited}</h1>
-      <p>{lastReview}</p>
+    <div className="companyResult">
+      <div className="waitTitle">The last reported wait time for {companyName} was {timeWaited}</div>
+      
+      <p className="review">Reviewed {lastReview}</p>
+      <div className="industry">Industry: {companyIndustry}</div>
     </div>
   );
 });

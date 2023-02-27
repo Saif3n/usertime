@@ -155,3 +155,31 @@ li:nth-child(2){
   cursor: pointer;
   transition: all 0.2s ease-in;
 }
+
+.companyResult{
+  color:white;
+  display: flex;
+  flex-direction: column;
+  padding:2vh;
+  width:50%;
+  border: 7px solid white;
+  text-align:left;
+  border-radius:5px;
+}
+.review{
+  margin-top:1.2vh;
+}
+.waitTitle{
+  font-size:3.5vh;
+  width:100%;
+  font-weight:bold;
+}
+.industry{
+  color:#a3a3a3;
+  font-weight:bold;
+  font-style:italic;
+}
+.companyName{
+  display: flex;
+  align-items:flex-end;
+}
