@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import Granim from "granim";
 import Navigation from "../Navigation";
@@ -10,6 +10,9 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [granimInstance, setGranimInstance] = useState(null);
+  const [companySearch, setCompanySearch] = useState(null);
+
+  const resultTime = useRef();
 
   useEffect(() => {
     if (granimInstance === null) {
@@ -54,6 +57,10 @@ function Home() {
     fetchSearchResults();
   }, [searchTerm, granimInstance]);
 
+  const handleCompanyClick = (company) => {
+    console.log("wd" + company)
+    setCompanySearch(company)
+  }
 
   return (
     <div>
@@ -74,7 +81,7 @@ function Home() {
         <div className="search-results-container">
           {searchResults.map((result) => (
             <>
-              <div key={result.companyId} className="search-result">
+              <div key={result.companyId} onClick = {() => handleCompanyClick(result.companyName)} className="search-result">
                 <li>{result.companyName}</li>
                 <li>{result.companyIndustry}</li>
               </div>
@@ -85,8 +92,8 @@ function Home() {
           </div>}
         </div>
       </div>
-      {/* need to add*/}
-      <WaitTime></WaitTime> 
+
+      {companySearch && <WaitTime companyName={companySearch} ref = {resultTime}></WaitTime>}
       <canvas id="canvas-basic" style={{ zIndex: -1 }}></canvas>
     </div>
   );
