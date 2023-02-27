@@ -6,8 +6,7 @@ const WaitTime = React.forwardRef((props, ref) => {
   const [lastReview, setLastReview] = useState(null);
 
   const companyName = props.companyName;
-  console.log(companyName)
-
+  
   useEffect(() => {
     const fetchReview = async () => {
       const response = await fetch(`https://localhost:7024/GetTime?name=${companyName}`);

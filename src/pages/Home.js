@@ -1,102 +1,43 @@
-import React, { useState, useEffect, useRef } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
-import Granim from "granim";
-import Navigation from "../Navigation";
-import WaitTime from "../components/WaitTime";
+import React, { useState, useRef, useEffect } from 'react';
+import '../App.css';
 
-function Home() {
-
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [granimInstance, setGranimInstance] = useState(null);
-  const [companySearch, setCompanySearch] = useState(null);
-
-  const resultTime = useRef();
+const SearchBar = () => {
+  const [searchValue, setSearchValue] = useState('');
+  const [showResults, setShowResults] = useState(false);
+  const [selectedResult, setSelectedResult] = useState(null);
+  const resultsRef = useRef(null);
 
   useEffect(() => {
-    if (granimInstance === null) {
-      const instance = new Granim({
-        element: "#canvas-basic",
-        direction: "custom",
-        customDirection: {
-          x0: "40%",
-          y0: "10px",
-          x1: "60%",
-          y1: "50%",
-        },
-        isPausedWhenNotInView: true,
-
-        states: {
-          "default-state": {
-            gradients: [
-              ["#0A080D", "#40263D"],
-              ["#570F32", "#530C2E"],
-              ["#3B2F4C", "#141729"],
-            ],
-          },
-        },
-
-      });
-      setGranimInstance(instance);
-    } else {
-      granimInstance.changeState("default-state");
+    if (showResults && resultsRef.current) {
+      resultsRef.current.style.height = `${resultsRef.current.scrollHeight}px`;
+    } else if (!showResults && resultsRef.current) {
+      resultsRef.current.style.height = '0';
+      setSelectedResult(null);
     }
+  }, [showResults]);
 
-    const fetchSearchResults = async () => {
-      if (searchTerm.trim()) {
-        const response = await fetch(
-          `https://localhost:7024/GetCompanyByName/${searchTerm}`
-        );
-        const data = await response.json();
-        setSearchResults(data);
-      } else {
-        setSearchResults([]);
-      }
-    };
-    fetchSearchResults();
-  }, [searchTerm, granimInstance]);
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+    setShowResults(event.target.value.length > 0);
+  };
 
-  const handleCompanyClick = (company) => {
-    console.log("wd" + company)
-    setCompanySearch(company)
-  }
+  const handleResultClick = (result) => {
+    setSelectedResult(result);
+    setSearchValue(result);
+    setShowResults(false);
+  };
 
   return (
-    <div>
-      <div className="title">
-        <h1 className="header">Call Centre Wait Times</h1>
-        <h2 className="detail">Wanting to know how long it'll take to get through to a company via phone? Type in the desired company in the search box below.</h2>
-      </div>
-      <div className="search-bar-container">
-        <div className="search-bar-wrapper">
-          <input
-            type="text"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-bar"
-          />
-        </div>
-        <div className="search-results-container">
-          {searchResults.map((result) => (
-            <>
-              <div key={result.companyId} onClick = {() => handleCompanyClick(result.companyName)} className="search-result">
-                <li>{result.companyName}</li>
-                <li>{result.companyIndustry}</li>
-              </div>
-            </>
-          ))}
-          {searchTerm && <div className="search-result">
-            <li id="add">Don't see what you're looking for? <br></br>Click <Link to="/AddCompany">here</Link> to add a company</li>
-          </div>}
-        </div>
-      </div>
-
-      {companySearch && <WaitTime companyName={companySearch} ref = {resultTime}></WaitTime>}
-      <canvas id="canvas-basic" style={{ zIndex: -1 }}></canvas>
+    <div class="searchBox">
+      <input class="searchInput" type="text" name="" placeholder="Search"/>
+        <button class="searchButton" href="#">
+          <i class="material-icons">
+            search
+          </i>
+        </button>
     </div>
-  );
-}
 
-export default Home;
+  );
+};
+
+export default SearchBar;
