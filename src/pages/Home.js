@@ -83,8 +83,8 @@ function Home() {
         <div className="search-results-container">
           {searchResults.map((result) => (
               <div key={result.companyId} onClick = {() => handleCompanyClick(result.companyName, result.companyIndustry)} className="search-result">
-                <li>{result.companyName}</li>
-                <li>{result.companyIndustry}</li>
+                <li className="li-result">{result.companyName}</li>
+                <li className="li-result">{result.companyIndustry}</li>
               </div>
           ))}
           {searchTerm && <div className="search-result">

@@ -44,6 +44,10 @@ body {
 
 }
 
+li{
+  list-style-type: none;
+
+}
 
 hr {
   display: block;
@@ -63,15 +67,42 @@ hr {
   font-size: 2vh;
 }
 
-li {
+.li-result {
   list-style-type: none;
 }
 
-li:nth-child(2) {
+.li-result:nth-child(2) {
   color: grey;
   font-weight: bold;
   font-size: 1.7vh;
 }
+
+#day{
+  display:inline-flex;
+  flex-direction: column;
+  margin:2vh;
+  padding:2vh;
+  border-radius:5px;
+  min-width:10vh;
+  text-align:center;
+  text-decoration:underline;
+  border: 2px white solid;
+  cursor:pointer;
+}
+
+.weekTime{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weekday{
+  color:white;
+  font-size:2vh;
+  font-weight:bold;
+  text-align: center;
+}
+
 
 #add {
   text-decoration: underline;
@@ -177,7 +208,7 @@ li:nth-child(2) {
   display: flex;
   flex-direction: column;
   padding: 2vh;
-  width: 50%;
+  width: 80%;
   border: 7px solid white;
   text-align: left;
   border-radius: 5px;
@@ -186,6 +217,7 @@ li:nth-child(2) {
 .review {
   margin-top: 1.2vh;
 }
+
 
 .leaveReview {
   border: 2px solid white;
@@ -212,15 +244,68 @@ li:nth-child(2) {
 form{
   font-size:3vh;
   font-weight:bold;
+
 }
+.form-control{
+  background: transparent;
+  color:white;
+  font-weight:bold;
+  font-size:5vh;
+  min-width:1%;
+  max-width:12%;
+  text-align:center;
+  margin-right:2vh;
+  border:none;
+  border-bottom:2px solid white;
+}
+
 .submit-wait {
   justify-content: center;
   align-items: center;
   display:flex;
-  background: transparent;
-  margin-top: 2vh;
+
 }
 
+.submit-button {
+  justify-content: center;
+  align-items: center;
+  display:flex;
+}
+
+
 .button-submit {
-  width: 100%;
+  cursor:pointer;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  border:2px solid white;
+  font-size:2vh;
+  font-weight:bold;
+  color:white;
+  padding:2vh;
+  border-radius:5px;
+  background:transparent;
+}
+.button-submit:hover{
+  background-color:#ffffff;
+  color:black;
+}
+.contact{
+  justify-content: center;
+  align-items: center;
+  display:flex;
+
+}
+
+
+
+@keyframes form-show {
+  from {
+    opacity: 0;
+    height: 0%;
+  }
+  to {
+    opacity: 1;
+    height: 100%;
+  }
 }
