@@ -186,15 +186,16 @@ li:nth-child(2) {
 .review {
   margin-top: 1.2vh;
 }
-.leaveReview{
+
+.leaveReview {
   border: 2px solid white;
-  padding:2%;
-  width:95.5%;
-  text-align:center;
+  padding: 2%;
+  width: 95.5%;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .waitTitle {
@@ -208,7 +209,18 @@ li:nth-child(2) {
   font-weight: bold;
   font-style: italic;
 }
+form{
+  font-size:3vh;
+  font-weight:bold;
+}
+.submit-wait {
+  justify-content: center;
+  align-items: center;
+  display:flex;
+  background: transparent;
+  margin-top: 2vh;
+}
 
-.companyName {
-  
+.button-submit {
+  width: 100%;
 }

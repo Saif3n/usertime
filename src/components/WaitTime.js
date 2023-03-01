@@ -60,10 +60,11 @@ const WaitTime = React.forwardRef((props, ref) => {
 
             <Form onSubmit={submitReview}>
               <Form.Group>
-                <Form.Control required type="number" placeholder="How long did you wait on the phone?" ref={submitTime} />
+                How long did you wait on the phone?
+                <Form.Control required className="submit-wait" type="number" placeholder="" ref={submitTime} /> minutes
               </Form.Group>
               <br></br>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" className="button-submit" type="submit">
                 Submit
               </Button>
             </Form>
