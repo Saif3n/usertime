@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import moment from "moment";
+import Weekday from "./Weekday";
 
 const WaitTime = React.forwardRef((props, ref) => {
 
@@ -19,12 +20,26 @@ const WaitTime = React.forwardRef((props, ref) => {
   const companyIndustry = props.companyIndustry;
 
 
+
+  console.log("check call wait");
+  console.log("leave review button: "+showLeaveReview)
+  console.log("leave review form: "+showReviewForm)
+
+
   useEffect(() => {
     const fetchReview = async () => {
+      setShowLeaveReview(true);
+      console.log('----------------')
       const response = await fetch(`https://localhost:7024/GetTime?name=${companyName}`);
       const data = await response.json();
-      setTimeWaited(data.timeWaited);
-      setLastReview(data.timeSinceLastReview);
+
+      if (data.errormessage === undefined) {
+        setLastReview(`Reviewed ${data.timeSinceLastReview}`);
+        setTimeWaited(`The last reported wait time for ${companyName} was ${data.timeWaited}`)
+      } else {
+        setTimeWaited(data.errormessage);
+
+      }
     };
     fetchReview();
   }, [companyName]);
@@ -59,7 +74,7 @@ const WaitTime = React.forwardRef((props, ref) => {
     setValue(e.target.value);
   }
 
-  const handleReviewButton = () =>{
+  const handleReviewButton = () => {
     setShowLeaveReview(false)
     setShowReviewForm(true)
   }
@@ -67,29 +82,19 @@ const WaitTime = React.forwardRef((props, ref) => {
   return (
     <div className='companyResult'>
       <div className="backgroundDiv">
-        <div className="waitTitle">The last reported wait time for {companyName} was {timeWaited}</div>
+        <div className="waitTitle">{timeWaited}</div>
 
-        <p className="review">Reviewed {lastReview}</p>
+        <p className="review">{lastReview}</p>
         <div className="industry">Industry: {companyIndustry}</div>
-        <hr></hr>
-        <div className="weekday">Average wait time by weekday:</div>
-    
-        <div className="weekTime">
-          <li id="day">Monday</li>
-          <li id="day">Tuesday</li>
-          <li id="day">Wednesday</li>
-          <li id="day">Thursday</li>
-          <li id="day">Friday</li>
-          <li id="day">Saturday</li>
-          <li id="day">Sunday</li>
-        </div>
-        <hr></hr>
+
+        <Weekday />
+
       </div>
       <div
-          className="leaveReview"
-          style={{ display: showLeaveReview ? "block" : "none" }}
-          onClick={handleReviewButton}
-        >Leave a review</div>
+        className="leaveReview"
+        style={{ display: showLeaveReview ? "block" : "none" }}
+        onClick={handleReviewButton}
+      >Leave a review</div>
 
       <div style={{ display: showReviewForm ? "block" : "none" }} >
         <div className="bottom">

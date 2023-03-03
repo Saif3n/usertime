@@ -11,6 +11,8 @@ function Home() {
   const [searchResults, setSearchResults] = useState([]);
   const [granimInstance, setGranimInstance] = useState(null);
   const [companySearch, setCompanySearch] = useState(null);
+  const [companyTime, setCompanyTime] = useState(null);
+
   const [companyIndustry, setCompanyIndustry] = useState(null);
 
   const resultTime = useRef();
@@ -44,23 +46,30 @@ function Home() {
       granimInstance.changeState("default-state");
     }
 
-    const fetchSearchResults = async () => {
-      if (searchTerm.trim()) {
-        const response = await fetch(
-          `https://localhost:7024/GetCompanyByName/${searchTerm}`
-        );
-        const data = await response.json();
-        setSearchResults(data);
-      } else {
-        setSearchResults([]);
-      }
-    };
-    fetchSearchResults();
-  }, [searchTerm, granimInstance]);
+  }, [granimInstance]);
+
+
+  const fetchSearchResults = async (e) => {
+    setSearchTerm(e.target.value);
+    setCompanySearch(null)
+    console.log('company '+ companySearch)
+    console.log('--')
+    if (e.target.value.trim()) {
+      const response = await fetch(
+        `https://localhost:7024/GetCompanyByName/${e.target.value}`
+      );
+      const data = await response.json();
+      setSearchResults(data);
+    } else {
+      setSearchResults([]);
+    }
+  };
 
   const handleCompanyClick = (company, industry) => {
     setCompanySearch(company)
+    setCompanyTime(company)
     setCompanyIndustry(industry)
+    setSearchResults([])
     setSearchTerm('');
   }
 
@@ -76,7 +85,7 @@ function Home() {
             type="text"
             placeholder="Search"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => fetchSearchResults(e)}
             className="search-bar"
           />
         </div>
@@ -91,7 +100,7 @@ function Home() {
             <li id="add">Don't see what you're looking for? <br></br>Click <Link to="/AddCompany">here</Link> to add a company</li>
           </div>}
         </div>
-        {companySearch && <WaitTime companyName={companySearch} companyIndustry={companyIndustry} ref = {resultTime}></WaitTime>}
+        {companySearch && (console.log('Rendering WaitTime...') || <WaitTime companyName={companyTime} companyIndustry={companyIndustry} ref={resultTime} />)}
       </div>
 
       
