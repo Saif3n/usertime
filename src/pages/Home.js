@@ -50,7 +50,7 @@ function Home() {
 
 
   const fetchSearchResults = async (searchTerm) => {
-    setCompanySearch(null);
+    
     if (searchTerm.trim()) {
       const response = await fetch(
         `https://localhost:7024/GetCompanyByName/${searchTerm}`
@@ -64,6 +64,7 @@ function Home() {
 
   const handleInputChange = (e) => {
     const searchTerm = e.target.value;
+    setCompanySearch(null);
     console.log(searchTerm)
     setSearchTerm(searchTerm);
     if (timerId) {
@@ -72,7 +73,7 @@ function Home() {
     if (searchTerm.trim()) {
       const id = setTimeout(() => {
         fetchSearchResults(searchTerm);
-      }, 650);
+      }, 500);
       setTimerId(id);
     } else {
       setSearchResults([]);

@@ -1,14 +1,13 @@
 import React from 'react';
- 
+
 import { NavLink, Link } from 'react-router-dom';
- 
+
 const Navigation = () => {
-    return (
-       <div>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/addcompany">About</Link></li>
-       </div>
-    );
+   return (
+      <div className="navHome" >
+         <Link className="navText" to="/">Back to Home</Link>
+      </div>
+   );
 }
- 
+
 export default Navigation;
