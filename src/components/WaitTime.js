@@ -25,6 +25,7 @@ const WaitTime = React.forwardRef((props, ref) => {
   useEffect(() => {
     const fetchReview = async () => {
       setShowLeaveReview(true);
+      //personalbackendreact.azurewebsites.net
       const response = await fetch(`https://localhost:7024/GetTime?name=${companyName}`);
       const data = await response.json();
 
@@ -77,7 +78,7 @@ const WaitTime = React.forwardRef((props, ref) => {
     setShowLeaveReview(false)
     setShowReviewForm(true)
     setWeekdayActive(false)
-    
+
   }
 
   return (

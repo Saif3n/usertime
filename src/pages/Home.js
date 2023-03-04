@@ -65,7 +65,7 @@ function Home() {
   const handleInputChange = (e) => {
     const searchTerm = e.target.value;
     setCompanySearch(null);
-    console.log(searchTerm)
+
     setSearchTerm(searchTerm);
     if (timerId) {
       clearTimeout(timerId);

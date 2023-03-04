@@ -101,6 +101,8 @@ hr {
   align-items: center;
   justify-content: center;
   margin-top:5vh;
+  flex-wrap:wrap;
+
 }
 
 
@@ -131,13 +133,14 @@ hr {
   right: 0;
   bottom: 0;
   left: 0;
+  overflow:auto;
 }
 
 .search-bar-wrapper {
   display: flex;
   align-items: center;
-  width: 500px;
-  height: 44px;
+  width: 27%;
+  height: 2%;
   color: #f3efef;
   border: 3px solid #ebedf0;
   border-radius: 24px;
@@ -187,19 +190,19 @@ hr {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 500px;
+  width: 65%;;
   margin-top: 8px;
 }
 
 .search-result {
-  width: 500px;
+  width: 40%;;
   color: white;
-  height: 40px;
+  height: 2%;
   border: 3.5px solid #ebedf0;
   border-radius: 8px;
-  padding: 8px;
-  font-size: 16px;
-  margin-bottom: 8px;
+  padding: 1vh;
+  font-size: 1.8vh;
+  margin-bottom: 1vh;
   text-align: left;
   cursor: pointer;
   transition: all 0.2s ease-in;
@@ -236,7 +239,7 @@ hr {
 
 .leaveReview {
   background-color:#969494;
-  border: 2px solid white;
+  border: 2px solid #969494;
   color:white;
   font-weight:400;
   font-size:3vh;
@@ -356,5 +359,23 @@ form{
   to {
     opacity: 1;
     height: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+
+  
+  #canvas-basic{
+    height:120%;
+  }
+  .search-bar-wrapper{
+    width:70%;
+    margin-top:10vh;
+    margin-bottom:10vh;
+  }
+  .search-results-container{
+    width:160%;
+  }
+  .leaveReview{
+    width:94.7%;
   }
 }

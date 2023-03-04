@@ -26,7 +26,7 @@ function AddCompany() {
         }
 
         axios
-            .post("https://localhost:7024/AddCompany", payload)
+            .post("https://personalbackendreact.azurewebsites.net/AddCompany", payload)
             .then((response) => {
                 console.log('Azure post successful.', response.status, response.data);
                 alert(response.data)
