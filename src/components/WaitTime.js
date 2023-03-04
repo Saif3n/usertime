@@ -7,11 +7,13 @@ import Weekday from "./Weekday";
 const WaitTime = React.forwardRef((props, ref) => {
 
   const submitTime = useRef("");
+  const weekdayTime = useRef("");
 
   const [timeWaited, setTimeWaited] = useState(null);
   const [lastReview, setLastReview] = useState(null);
   const [value, setValue] = useState('');
 
+  const [weekdayActive, setWeekdayActive] = useState(true);
   const [showThanksMessage, setShowThanksMessage] = useState(false);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showLeaveReview, setShowLeaveReview] = useState(true);
@@ -20,16 +22,9 @@ const WaitTime = React.forwardRef((props, ref) => {
   const companyIndustry = props.companyIndustry;
 
 
-
-  console.log("check call wait");
-  console.log("leave review button: "+showLeaveReview)
-  console.log("leave review form: "+showReviewForm)
-
-
   useEffect(() => {
     const fetchReview = async () => {
       setShowLeaveReview(true);
-      console.log('----------------')
       const response = await fetch(`https://localhost:7024/GetTime?name=${companyName}`);
       const data = await response.json();
 
@@ -46,9 +41,12 @@ const WaitTime = React.forwardRef((props, ref) => {
 
   function submitReview(event) {
     event.preventDefault();
+
     setShowThanksMessage(true);
     setShowLeaveReview(false)
     setShowReviewForm(false)
+    setWeekdayActive(true)
+
     setValue('');
 
     let checkTime = submitTime.current.value
@@ -75,8 +73,11 @@ const WaitTime = React.forwardRef((props, ref) => {
   }
 
   const handleReviewButton = () => {
+
     setShowLeaveReview(false)
     setShowReviewForm(true)
+    setWeekdayActive(false)
+    
   }
 
   return (
@@ -87,9 +88,10 @@ const WaitTime = React.forwardRef((props, ref) => {
         <p className="review">{lastReview}</p>
         <div className="industry">Industry: {companyIndustry}</div>
 
-        <Weekday />
+        {weekdayActive && <Weekday ref={weekdayTime} companyName = {companyName} />}
 
       </div>
+      
       <div
         className="leaveReview"
         style={{ display: showLeaveReview ? "block" : "none" }}
@@ -116,7 +118,7 @@ const WaitTime = React.forwardRef((props, ref) => {
         </div>
 
       </div>
-      {showThanksMessage && <div className="thanksMessage">Thanks for leaving a review, your valued input helps other kiwis gain insight into the wait time of the desired company.</div>}
+      {showThanksMessage && <div className="thanksMessage">Thanks for leaving a review, your valued input helps other kiwis gain insight into the wait times of NZ companies.</div>}
     </div>
   );
 });

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Granim from "granim";
-import Navigation from "../Navigation";
 import WaitTime from "../components/WaitTime";
 
 function Home() {
@@ -12,6 +11,7 @@ function Home() {
   const [granimInstance, setGranimInstance] = useState(null);
   const [companySearch, setCompanySearch] = useState(null);
   const [companyTime, setCompanyTime] = useState(null);
+  const [timerId, setTimerId] = useState(null);
 
   const [companyIndustry, setCompanyIndustry] = useState(null);
 
@@ -49,14 +49,11 @@ function Home() {
   }, [granimInstance]);
 
 
-  const fetchSearchResults = async (e) => {
-    setSearchTerm(e.target.value);
-    setCompanySearch(null)
-    console.log('company '+ companySearch)
-    console.log('--')
-    if (e.target.value.trim()) {
+  const fetchSearchResults = async (searchTerm) => {
+    setCompanySearch(null);
+    if (searchTerm.trim()) {
       const response = await fetch(
-        `https://localhost:7024/GetCompanyByName/${e.target.value}`
+        `https://localhost:7024/GetCompanyByName/${searchTerm}`
       );
       const data = await response.json();
       setSearchResults(data);
@@ -65,10 +62,29 @@ function Home() {
     }
   };
 
+  const handleInputChange = (e) => {
+    const searchTerm = e.target.value;
+    console.log(searchTerm)
+    setSearchTerm(searchTerm);
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    if (searchTerm.trim()) {
+      const id = setTimeout(() => {
+        fetchSearchResults(searchTerm);
+      }, 650);
+      setTimerId(id);
+    } else {
+      setSearchResults([]);
+    }
+  };
+
   const handleCompanyClick = (company, industry) => {
+
     setCompanySearch(company)
     setCompanyTime(company)
     setCompanyIndustry(industry)
+
     setSearchResults([])
     setSearchTerm('');
   }
@@ -85,25 +101,25 @@ function Home() {
             type="text"
             placeholder="Search"
             value={searchTerm}
-            onChange={(e) => fetchSearchResults(e)}
+            onChange={handleInputChange}
             className="search-bar"
           />
         </div>
         <div className="search-results-container">
           {searchResults.map((result) => (
-              <div key={result.companyId} onClick = {() => handleCompanyClick(result.companyName, result.companyIndustry)} className="search-result">
-                <li className="li-result">{result.companyName}</li>
-                <li className="li-result">{result.companyIndustry}</li>
-              </div>
+            <div key={result.companyId} onClick={() => handleCompanyClick(result.companyName, result.companyIndustry)} className="search-result">
+              <li className="li-result">{result.companyName}</li>
+              <li className="li-result">{result.companyIndustry}</li>
+            </div>
           ))}
           {searchTerm && <div className="search-result">
             <li id="add">Don't see what you're looking for? <br></br>Click <Link to="/AddCompany">here</Link> to add a company</li>
           </div>}
         </div>
-        {companySearch && (console.log('Rendering WaitTime...') || <WaitTime companyName={companyTime} companyIndustry={companyIndustry} ref={resultTime} />)}
+        {companySearch && <WaitTime companyName={companyTime} companyIndustry={companyIndustry} ref={resultTime} />}
       </div>
 
-      
+
       <canvas id="canvas-basic" style={{ zIndex: -1 }}></canvas>
     </div>
   );

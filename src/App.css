@@ -44,6 +44,10 @@ body {
 
 }
 
+* {
+  transition: width 0.3s ease-out, height 0.3s ease-out;
+}
+
 li{
   list-style-type: none;
 
@@ -90,18 +94,16 @@ hr {
   cursor:pointer;
 }
 
+
+
 .weekTime{
   display:flex;
   align-items: center;
   justify-content: center;
+  margin-top:5vh;
 }
 
-.weekday{
-  color:white;
-  font-size:2vh;
-  font-weight:bold;
-  text-align: center;
-}
+
 
 
 #add {
@@ -204,25 +206,42 @@ hr {
 }
 
 .companyResult {
+  width:100%;
+}
+
+.backgroundDiv{
   color: white;
   display: flex;
   flex-direction: column;
   padding: 2vh;
-  width: 100%;
   background-color:#313030;
   text-align: center;
   border-radius: 5px;
 }
 
+.weekday{
+  overflow:visible;
+  color:white;
+  font-size:2vh;
+  font-weight:bold;
+  text-align: center;
+  padding:1vh;
+  padding-top:1vh;
+
+}
 .review {
   margin-top: 1.2vh;
 }
 
 
 .leaveReview {
+  background-color:#969494;
   border: 2px solid white;
-  padding: 2%;
-  width: 95.5%;
+  color:white;
+  font-weight:400;
+  font-size:3vh;
+  padding:1vh;
+  width: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -294,11 +313,19 @@ form{
   justify-content: center;
   align-items: center;
   display:flex;
-
+  border:2px solid #9e9999;
+  background-color:#9e9999;
+  padding:3vh;
 }
 
+.average.active{
+  padding-top:8.7vh;
+  font-size:2.3vh;
+}
 
-
+.activeDay{
+  background-color: #5a255f;
+}
 @keyframes form-show {
   from {
     opacity: 0;
