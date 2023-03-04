@@ -53,7 +53,8 @@ function Home() {
     
     if (searchTerm.trim()) {
       const response = await fetch(
-        `https://localhost:7024/GetCompanyByName/${searchTerm}`
+        //personalbackendreact.azurewebsites.net
+        `https://personalbackendreact.azurewebsites.net/GetCompanyByName/${searchTerm}`
       );
       const data = await response.json();
       setSearchResults(data);

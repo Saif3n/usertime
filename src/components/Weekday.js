@@ -12,7 +12,7 @@ const Weekday = React.forwardRef((props, ref) => {
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch(
-                `https://localhost:7024/GetWeekDay/${companyName}`
+                `https://personalbackendreact.azurewebsites.net/GetWeekDay/${companyName}`
             );
             const weekdayJson = await response.json();
             setDataweekday(weekdayJson);

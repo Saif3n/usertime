@@ -26,7 +26,7 @@ const WaitTime = React.forwardRef((props, ref) => {
     const fetchReview = async () => {
       setShowLeaveReview(true);
       //personalbackendreact.azurewebsites.net
-      const response = await fetch(`https://localhost:7024/GetTime?name=${companyName}`);
+      const response = await fetch(`https://personalbackendreact.azurewebsites.net/GetTime?name=${companyName}`);
       const data = await response.json();
 
       if (data.errormessage === undefined) {
@@ -59,7 +59,7 @@ const WaitTime = React.forwardRef((props, ref) => {
     }
 
     axios
-      .post("https://localhost:7024/AddReview", payload)
+      .post("https://personalbackendreact.azurewebsites.net/AddReview", payload)
       .then((response) => {
         console.log('Azure post successful.', response.status, response.text);
       }).catch((error) => {
