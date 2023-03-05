@@ -139,7 +139,7 @@ hr {
 .search-bar-wrapper {
   display: flex;
   align-items: center;
-  width: 27%;
+  width: 34%;
   height: 2%;
   color: #f3efef;
   border: 3px solid #ebedf0;
@@ -196,7 +196,7 @@ hr {
 }
 
 .search-result {
-  width: 40%;;
+  width: 50%;;
   color: white;
   height: 2%;
   border: 3.5px solid #ebedf0;
@@ -370,7 +370,7 @@ form{
   }
   .search-bar-wrapper{
     width:70%;
-    margin-top:10vh;
+    margin-top:5vh;
     margin-bottom:5vh;
   }
   .search-result{
@@ -380,3 +380,52 @@ form{
     width:94.7%;
   }
 }
+
+/* SPINNER */
+
+body {
+	background-color: #f1f1f1;
+}
+
+/* Box Container */
+.containerSpin {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 720px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+/* Keyframes Spin */
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* Spinner */
+.spinner {
+	--spinner-color: rgb(126, 13, 201);
+
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+
+	animation-name: spin;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+.spinner--quarter {
+	width: 48px;
+	border: 5px solid var(--spinner-color);
+	border-top-color: transparent;
+
+	animation-duration: 1s;
+}
+
+
+

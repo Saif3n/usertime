@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Granim from "granim";
 import WaitTime from "../components/WaitTime";
+import Spinner from "../components/Spinner"
 
 function Home() {
 
@@ -12,6 +13,9 @@ function Home() {
   const [companySearch, setCompanySearch] = useState(null);
   const [companyTime, setCompanyTime] = useState(null);
   const [timerId, setTimerId] = useState(null);
+
+  const [missingCompany, setMissingCompany] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const [companyIndustry, setCompanyIndustry] = useState(null);
 
@@ -50,7 +54,7 @@ function Home() {
 
 
   const fetchSearchResults = async (searchTerm) => {
-    
+
     if (searchTerm.trim()) {
       const response = await fetch(
         //personalbackendreact.azurewebsites.net
@@ -61,13 +65,16 @@ function Home() {
     } else {
       setSearchResults([]);
     }
+    setMissingCompany(true);
+    setLoader(false);
   };
 
   const handleInputChange = (e) => {
     const searchTerm = e.target.value;
     setCompanySearch(null);
-
     setSearchTerm(searchTerm);
+    setLoader(true);
+
     if (timerId) {
       clearTimeout(timerId);
     }
@@ -114,13 +121,14 @@ function Home() {
               <li className="li-result">{result.companyIndustry}</li>
             </div>
           ))}
-          {searchTerm && <div className="search-result">
+          {missingCompany && <div className="search-result">
             <li id="add">Don't see what you're looking for? <br></br>Click <Link to="/AddCompany">here</Link> to add a company</li>
           </div>}
         </div>
         {companySearch && <WaitTime companyName={companyTime} companyIndustry={companyIndustry} ref={resultTime} />}
       </div>
 
+      {loader && <Spinner />}
 
       <canvas id="canvas-basic" style={{ zIndex: -1 }}></canvas>
     </div>
