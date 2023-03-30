@@ -58,7 +58,7 @@ function Home() {
     if (searchTerm.trim()) {
       const response = await fetch(
         //personalbackendreact.azurewebsites.net
-        `https://personalbackendreact.azurewebsites.net/GetCompanyByName/${searchTerm}`
+        `https://localhost:7024/GetCompanyByName/${searchTerm}`
       );
       const data = await response.json();
       setSearchResults(data);
@@ -66,6 +66,7 @@ function Home() {
       setSearchResults([]);
     }
     setMissingCompany(true);
+    console.log('huh')
     setLoader(false);
   };
 
@@ -85,6 +86,8 @@ function Home() {
       setTimerId(id);
     } else {
       setSearchResults([]);
+      setLoader(false);
+      setMissingCompany(false);
     }
   };
 
@@ -93,7 +96,8 @@ function Home() {
     setCompanySearch(company)
     setCompanyTime(company)
     setCompanyIndustry(industry)
-
+    setMissingCompany(false);
+    
     setSearchResults([])
     setSearchTerm('');
   }

@@ -97,7 +97,7 @@ const WaitTime = React.forwardRef((props, ref) => {
         className="leaveReview"
         style={{ display: showLeaveReview ? "block" : "none" }}
         onClick={handleReviewButton}
-      >Leave a review</div>
+      >Leave a Review</div>
 
       <div style={{ display: showReviewForm ? "block" : "none" }} >
         <div className="bottom">
